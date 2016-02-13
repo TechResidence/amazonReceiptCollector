@@ -14,32 +14,32 @@ public class AmazonUtil {
 
 	private final FirefoxDriver driver;
 
-	private static final String screenshotFolder = "";
-
-	private static final String accountID = "";
-	private static final String password = "";
+	private static final String screenshotFolder = "/your/pucture/folder";
+	private static final String accountID = "hoge@gmail.com";
+	private static final String password = "hogehoge";
+	private static final int pageIndex = 10;
 
 	public AmazonUtil(FirefoxDriver driver){
 		this.driver = driver;
 	}
 
 
-	public String navigate(String path, int index) throws Exception {
+	public String navigate(String path) throws Exception {
 		driver.get("https://www.amazon.co.jp"+path);
 		String html=driver.getPageSource();
 		Thread.sleep(500);
 
 		//we will encounter two type of login form
 		if (html.contains("ap_signin_form")) {
-			signIn(index);
+			signIn(pageIndex);
 		}else{
-			signIn2(index);
+			signIn2(pageIndex);
 		}
 		html=driver.getPageSource();
 		return html;
 	}
 
-	public void signIn(int index) throws Exception {
+	private void signIn(int index) throws Exception {
 		WebElement emailField=driver.findElement(By.id("ap_email"));
 		emailField.sendKeys(accountID);
 		WebElement passwordField=driver.findElement(By.id("ap_password"));
@@ -52,7 +52,7 @@ public class AmazonUtil {
 		exec(index);
 	}
 
-	private void signIn2(int index) throws InterruptedException, IOException {
+	private void signIn2(int pageIndex) throws InterruptedException, IOException {
 		WebElement emailField=driver.findElement(By.id("ap_email"));
 		emailField.sendKeys(accountID);
 		WebElement passwordField=driver.findElement(By.id("ap_password"));
@@ -62,13 +62,13 @@ public class AmazonUtil {
 		Thread.sleep(500);
 		signinButton.click();
 
-		exec(index);
+		exec(pageIndex);
 	}
 
-	private void exec(int startIndex) throws InterruptedException, IOException {
+	private void exec(int pageIndex) throws InterruptedException, IOException {
 		Thread.sleep(500);
 
-		for(int i=0; i < startIndex; i++){
+		for(int i=0; i < pageIndex; i++){
 			driver.navigate().to("https://www.amazon.co.jp/gp/your-account/order-history/ref=oh_aui_pagination_1_2?ie=UTF8&orderFilter=months-6&search=&startIndex=" + i * 10);
 
 			for(int j=2; j < 12; j++){
