@@ -1,7 +1,7 @@
 
 ## abstract
 
-this tool will collect all your
+this tool will collect all your Receipt of Amazon(.co.jp)
 
 
 ## setup
