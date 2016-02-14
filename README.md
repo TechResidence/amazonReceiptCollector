@@ -10,7 +10,7 @@ this tool will collect all your Receipt of Amazon(.co.jp)
 
 1. (get firefox webDriver)
 
-1. set your accountID/password/targetFolder/pageIndex
+1. set your accountID/password/targetFolder/pageStartIndex/pageStopIndex/orderFilter
 
 (targetFolder is your local folder to set receipt screenshots)
 
